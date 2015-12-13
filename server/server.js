@@ -37,8 +37,7 @@ io.on('connection', function(socket){
 		// newData.startPosition = mapGen.startPosition;
 		newData.otherPlayers = [];
 		//add send clientIds to new player. jp = currentPlayer
-		for (var cp in clientIds)
-		{
+		for (var cp in clientIds) {
 			if (cp == socket.id)
 				continue; //dont include current player
 			newData.otherPlayers.push({playerId:clientIds[cp]});

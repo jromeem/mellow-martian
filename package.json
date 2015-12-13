@@ -1,7 +1,7 @@
 {
-  "name": "bitmoba",
+  "name": "mellow-martian",
   "version": "0.0.1",
-  "description": "2D platformer moba, towerfall style",
+  "description": "Cooperative ship steering game",
   "main": "index.js",
   "dependencies": {
     "express": "^4.12.4",
@@ -15,8 +15,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://laero@bitbucket.org/laero/bitmoba.git"
+    "url": "https://jromeem@bitbucket.org/jromeem/mellow-martian.git"
   },
-  "author": "laero",
+  "author": "jromeem",
   "license": "ISC"
 }

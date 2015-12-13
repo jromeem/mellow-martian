@@ -1,17 +1,6 @@
-# ZEscape #
+# Mellow Martian #
 Technologies used: node.js, socket.io, Phaser
 
-Multiplayer, top-down shooter. Procedurally generated environment.
-Heavily inspired by Left 4 Dead (L4D), Dungeon of The Endless (DoTE), and general rogue-like games.
-
-Design decisions to make:
-	Room-to-room exploration, like DoTE?
-		or run-and-gun, like L4D?
-	Objective of game? (also, sub-objectives)
-	Room events?
-	How do enemies spawn?
-	Active and/or passive skills?
-	Scavenging?
-	What kind of equipment? Flashlight, armor, etc?
-	What kind of weapons? Melee? Range? Ammo?
-	Base building / progression. like bastion, or clan system of warframe (different structures, each 'researching' different things.
+To run:
+	node server/server.js
+	Navigate browser to localhost:3000

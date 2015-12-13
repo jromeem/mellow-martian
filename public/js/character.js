@@ -21,7 +21,7 @@ var CharacterSystem  = (function() {
 		Phaser.Sprite.call(this, game, x, y, image);
 		this.anchor.setTo(0.5,0.5);
 
-	    game.physics.p2.enable(this);
+	    // game.physics.p2.enable(this);
 
 		game.add.existing(this);
 
@@ -73,18 +73,37 @@ var CharacterSystem  = (function() {
 
 	return {
 	 	createPlayerCharacter: function(x,y) {
-			x = typeof x !== 'undefined' ? x : 100;
-			y = typeof y !== 'undefined' ? y : 100;
+			x = typeof x !== 'undefined' ? x : 300;
+			y = typeof y !== 'undefined' ? y : 300;
 			var newChar = Object.create(PlayerCharacter).init(x,y,'player_small');
-			console.log(newChar);
 			return newChar;
 		},
 
 	 	createEnemyCharacter: function(x,y) {
-			x = typeof x !== 'undefined' ? x : 100;
-			y = typeof y !== 'undefined' ? y : 100;
+			x = typeof x !== 'undefined' ? x : 300;
+			y = typeof y !== 'undefined' ? y : 300;
 	 		var newChar = Object.create(EnemyCharacter).init(x,y,'player_small');
 			return newChar;
+		},
+
+		createPlayerShip: function(x,y) {
+			x = typeof x !== 'undefined' ? x : 300;
+			y = typeof y !== 'undefined' ? y : 300;
+			var ship = Object.create(PlayerCharacter).init(x,y,'player_small');
+			ship.tint = 0xff0000;
+			var thruster_one = Object.create(PlayerCharacter).init(100,100,'player_small');
+			var thruster_two = Object.create(PlayerCharacter).init(300,100,'player_small');
+
+			ship.addChild(thruster_one);
+			ship.addChild(thruster_two);
+
+			//turn on physics
+		    game.physics.p2.enable(ship);
+    	    game.physics.p2.enable(thruster_one);
+		    game.physics.p2.enable(thruster_two);
+
+
+			return ship;
 		},
 	};
  })();

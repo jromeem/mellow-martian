@@ -65,8 +65,8 @@ playState.prototype = {
 		this.wallTiles.enableBody = true; //enable collision for walls
 
 		//add player/enemy
-		this.player = CharacterSystem.createPlayerCharacter();
-		this.playerr = CharacterSystem.createPlayerCharacter(200,200);
+		// this.player = CharacterSystem.createPlayerCharacter();
+		this.player = CharacterSystem.createPlayerShip();
 		this.player.tint = 0x00ff00;
 
 		this.ship = game.add.sprite(200, 200, 'player');

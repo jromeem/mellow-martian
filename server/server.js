@@ -8,8 +8,8 @@ var port = 3000;
 var clientIds = {};
 var playerIdCount = 0;
 
-var mapGen = require('./mapgen');
-var map = mapGen.makeMap(40,22,2,6,7); //(map width, map height, min roomsize, max roomsize, num rooms)
+// var mapGen = require('./mapgen');
+// var map = mapGen.makeMap(40,22,2,6,7); //(map width, map height, min roomsize, max roomsize, num rooms)
 
 // Express setup, serving static files
 app.use(express.static(path.join(__dirname, '../public')));

@@ -158,11 +158,12 @@ playState.prototype = {
 
 		//add to list of other players
 		this.otherPlayers[data.playerId] = CharacterSystem.createPlayerCharacter();
-		this.otherPlayers[data.playerId].sprite.tint = 0x00ffff;
+		console.log(this.otherPlayers[data.playerId]);
+		this.otherPlayers[data.playerId].tint = 0x00ffff;
 	},
 
 	removeClientPlayer: function(data) {
-		this.otherPlayers[data.playerId].sprite.destroy();
+		this.otherPlayers[data.playerId].destroy();
 		delete this.otherPlayers[data.playerId];
 	},
 
@@ -185,9 +186,10 @@ playState.prototype = {
 
 	//received pos data from other player; update their location
 	updateClientInputData: function(data) {
+		console.log(data);
 		var playerToUpdate = this.otherPlayers[data.playerId];
-		playerToUpdate.sprite.position = data.position;
-		playerToUpdate.sprite.rotation = data.rotation;
+		playerToUpdate.position = data.position;
+		playerToUpdate.rotation = data.rotation;
 	},
 	
 	//creates actual tiles for collision

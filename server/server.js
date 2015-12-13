@@ -59,7 +59,8 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('serverUpdateInputData', function(data) {
-		console.log('[Network] Received position data from client:' + JSON.stringify(data));
+		// console.log('[Network] Received position data from client:' + JSON.stringify(data));
+		console.log('[Network] Received position data from client ' + socket.id);
 		data.playerId = clientIds[socket.id];
 		io.emit('clientUpdateInputData', data);
 	});

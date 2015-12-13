@@ -8,6 +8,7 @@ var TILE_SIZE = {x:32,y:32};
 var socket;
 
 game.state.add('load', loadState);
+game.state.add('lobby', lobbyState);
 game.state.add('menu', menuState);
 game.state.add('play', playState);
 game.state.add('win', winState);

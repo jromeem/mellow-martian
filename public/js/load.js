@@ -22,6 +22,8 @@ loadState.prototype = {
 	},
 
 	create: function() {
-		game.state.start('menu');
+		// skip the menu
+		// game.state.start('menu');
+		game.state.start('lobby');
 	}
 };

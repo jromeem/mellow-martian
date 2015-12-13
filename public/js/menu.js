@@ -12,6 +12,6 @@ menuState.prototype = {
 	},
 
 	start: function() {
-		game.state.start('play');
+		game.state.start('lobby');
 	}
 };

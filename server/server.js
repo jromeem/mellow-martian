@@ -33,8 +33,8 @@ io.on('connection', function(socket){
 
 		var newData = {};
 		newData.playerId = clientIds[socket.id];
-		newData.map = map;
-		newData.startPosition = mapGen.startPosition;
+		// newData.map = map;
+		// newData.startPosition = mapGen.startPosition;
 		newData.otherPlayers = [];
 		//add send clientIds to new player. jp = currentPlayer
 		for (var cp in clientIds)

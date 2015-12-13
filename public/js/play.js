@@ -136,10 +136,12 @@ playState.prototype = {
 	//runs after joining game. adds/creates current players.
 	joinedGameInitialization: function(data) {
 		this.playerId = data.playerId;
-		this.map = data.map;
-		this.startPosition = data.startPosition;
-		this.player.position.x = this.startPosition.x * TILE_SIZE.x;
-		this.player.position.y = this.startPosition.y * TILE_SIZE.y;
+		// this.map = data.map;
+		// this.startPosition = data.startPosition;
+		// this.player.position.x = this.startPosition.x * TILE_SIZE.x;
+		// this.player.position.y = this.startPosition.y * TILE_SIZE.y;
+		this.player.position.x = 50;
+		this.player.position.y = 50;
 		// this.createMap(this.map);
 		for (var p in data.otherPlayers)
 		{

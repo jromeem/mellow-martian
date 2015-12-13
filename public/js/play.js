@@ -28,17 +28,17 @@ playState.prototype = {
 
 		//network stuff
 
-		//this player joined game. init network and world info
-		socket.on('joinSuccess', function(data) {
-			console.log('[Network] Join success. Initializing game.');
-			_this.joinedGameInitialization(data); //'this' refers to socket, not playState. hence, we use '_this'
-		});
+		// //this player joined game. init network and world info
+		// socket.on('joinSuccess', function(data) {
+		// 	console.log('[Network] Join success. Initializing game.');
+		// 	_this.joinedGameInitialization(data); //'this' refers to socket, not playState. hence, we use '_this'
+		// });
 
 		//other player disconnected
-		socket.on('clientDisconnect', function (data) {
-			console.log('[Network] Player disconnected: ' + JSON.stringify(data)); //should be dc message
-			_this.removeClientPlayer(data);
-		});
+		// socket.on('clientDisconnect', function (data) {
+		// 	console.log('[Network] Player disconnected: ' + JSON.stringify(data)); //should be dc message
+		// 	_this.removeClientPlayer(data);
+		// });
 
 		//update other players' positions
 		socket.on('clientUpdateInputData', function(data) {
@@ -48,11 +48,11 @@ playState.prototype = {
 		});
 
 		//new player joined, save network info and create obj for player
-		socket.on('clientJoined', function(data) {
-			console.log('[Network] New client/player joined');
-			if (data.playerId != _this.playerId && _this.playerId >= 0)
-				_this.createClientNewPlayer(data);
-		});
+		// socket.on('clientJoined', function(data) {
+		// 	console.log('[Network] New client/player joined');
+		// 	if (data.playerId != _this.playerId && _this.playerId >= 0)
+		// 		_this.createClientNewPlayer(data);
+		// });
 
 		//bind keyboard
 		this.keyboard = game.input.keyboard;
@@ -145,7 +145,6 @@ playState.prototype = {
 			console.log(data.otherPlayers[p]);
 			this.createClientNewPlayer(data.otherPlayers[p]);
 		}
-
 		// this.spawnRandomEnemies(); //temp, spawn enemies
 	},
 

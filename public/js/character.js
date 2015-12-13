@@ -14,27 +14,16 @@ var CharacterSystem  = (function() {
 		// console.log(this);
 		//this.maxHealth = -1;
 		//this.currentHealth = this.maxHealth;
-		this.moveSpeed = 200;
+		// this.moveSpeed = 200;
 
 		// this.sprite = game.add.sprite(x,y, image);
 		// this.sprite.anchor.setTo(0.5,0.5);	//set to center of sprite for rotation purposes
 		Phaser.Sprite.call(this, game, x, y, image);
 		this.anchor.setTo(0.5,0.5);
 
-		game.physics.enable(this, Phaser.Physics.ARCADE);
-		game.add.existing(this);
+	    game.physics.p2.enable(this);
 
-		this.shoot = function() {
-			if (game.time.now > this.nextFireTime && this.bullets.countDead() > 0) {
-				this.didShoot = true;
-				this.lastShotTarget = game.input.activePointer.position;
-				this.nextFireTime = game.time.now + this.fireRate;
-				var bullet = this.bullets.getFirstExists(false);
-				bullet.reset(this.x, this.y);
-				bullet.rotation = game.physics.arcade.moveToPointer(bullet, this.bulletSpeed, game.input.activePointer) + 1.57079633;
-				this.progressBarTween.start();
-			}
-		};
+		game.add.existing(this);
 
 		this.getHit = function(bullet) {
 			this.tint = Math.floor(Math.random() * (0xffffff - 0x000000 + 1)) + 0x000000;
@@ -58,21 +47,6 @@ var CharacterSystem  = (function() {
 			newChar.lastShotTarget = {};
 			newChar.nextFireTime = 0;
 			newChar.fireRate = 300;	//in millseconds (1/1000)
-			newChar.bulletSpeed = 1500;	//careful setting this too high- physics update can cause it to 'miss' objects
-
-			//create bullet pool
-			newChar.bullets = game.add.group();
-			newChar.bullets.enableBody = true;
-			newChar.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-			newChar.bullets.createMultiple(30, 'bullet', 0, false);   //30 bullets in recycle pool
-			newChar.bullets.setAll('anchor.x', 0.5);	//set anchor for proper rotatoin
-			newChar.bullets.setAll('anchor.y', 0.5);
-			newChar.bullets.setAll('outOfBoundsKill', true);	//'recycle' if out of bounds
-			newChar.bullets.setAll('checkWorldBounds', true);
-			newChar.bullets.forEach(function(item) {
-				game.debug.body(item,'red'); //display hitbox in red
-				item.body.setSize(4,4); //figire out P2 physics... this is a hack for now. b/c arcade physics cannot rotate hitbox
-			},newChar);
 
 			//create circular progress bar (currently displays shooting cooldown)
 			newChar.progressBar = new CircularProgressBar(game, x+100, y+100, 32, 0x000000, 0, 0.2);
@@ -99,16 +73,16 @@ var CharacterSystem  = (function() {
 
 	return {
 	 	createPlayerCharacter: function(x,y) {
-			x = typeof x !== 'undefined' ? x : -100;
-			y = typeof y !== 'undefined' ? y : -100;
+			x = typeof x !== 'undefined' ? x : 100;
+			y = typeof y !== 'undefined' ? y : 100;
 			var newChar = Object.create(PlayerCharacter).init(x,y,'player_small');
 			console.log(newChar);
 			return newChar;
 		},
 
 	 	createEnemyCharacter: function(x,y) {
-			x = typeof x !== 'undefined' ? x : -100;
-			y = typeof y !== 'undefined' ? y : -100;
+			x = typeof x !== 'undefined' ? x : 100;
+			y = typeof y !== 'undefined' ? y : 100;
 	 		var newChar = Object.create(EnemyCharacter).init(x,y,'player_small');
 			return newChar;
 		},

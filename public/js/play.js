@@ -66,63 +66,60 @@ playState.prototype = {
 
 		//add player/enemy
 		this.player = CharacterSystem.createPlayerCharacter();
+		this.playerr = CharacterSystem.createPlayerCharacter(200,200);
 		this.player.tint = 0x00ff00;
+
+		this.ship = game.add.sprite(200, 200, 'player');
+		game.physics.p2.enable(this.ship);
 
 		//join the game
 		socket.emit('join','roomid goes here');
 	},
 
 	update: function() {
-		var hasMoved = false;
+		var isRotating = false;
 		//debug info
 		game.debug.text(game.time.fps + ' FPS', 2, 14, 0x000000);	//display fps
-		game.debug.body(this.player,'red');	//display player hitbox
 		// this.player.bullets.forEachAlive(function(member) {game.debug.body(member,'red');}, this); //display bullet hitbox
 		
 		//collide with walls
-		game.physics.arcade.collide(this.player, this.wallTiles);
+		// game.physics.arcade.collide(this.player, this.wallTiles);
 
 		//end game when enemy is touched
 		// game.physics.arcade.overlap(this.player, this.enemies, this.gameOver);
 
 		//hit enemy
-		game.physics.arcade.overlap(this.player.bullets, this.enemies, function(bullet,enemy) {
-			enemy.getHit(bullet); // or is it a? in any case, these don't work. need to extend sprite in character.
-		});
+		// game.physics.arcade.overlap(this.player.bullets, this.enemies, function(bullet,enemy) {
+		// 	enemy.getHit(bullet); // or is it a? in any case, these don't work. need to extend sprite in character.
+		// });
 
 		//hit wall
-		game.physics.arcade.overlap(this.player.bullets, this.wallTiles, function(bullet,wall) { bullet.kill();});
+		// game.physics.arcade.overlap(this.player.bullets, this.wallTiles, function(bullet,wall) { bullet.kill();});
 
 		//rotate player to face mouse position
-		this.player.rotation = this.physics.arcade.angleToPointer(this.player);	//+ 1.57079633 (add this to add 90 degrees to angle if needed)
+		// this.player.rotation = this.physics.arcade.angleToPointer(this.player);	//+ 1.57079633 (add this to add 90 degrees to angle if needed)
 
-		//horizontal movement
-		if (this.keyboard.isDown(Phaser.Keyboard.A)) {
-			this.player.body.velocity.x = -200;
-			hasMoved = true;
-		} else if (this.keyboard.isDown(Phaser.Keyboard.D)) {
-			this.player.body.velocity.x = 200;
-			hasMoved = true;
-		} else {
-			this.player.body.velocity.x = 0;
+		if (this.keyboard.isDown(Phaser.Keyboard.Q)) {
+			this.player.body.thrust(400);
 		}
 
-		//vertical movement
 		if (this.keyboard.isDown(Phaser.Keyboard.W)) {
-			this.player.body.velocity.y = -200;
-			hasMoved = true;
-		} else if (this.keyboard.isDown(Phaser.Keyboard.S)) {
-			this.player.body.velocity.y = 200;
-			hasMoved = true;
-		} else {
-			this.player.body.velocity.y = 0;
+
 		}
 
-		//shooting / attacking
-		if (game.input.activePointer.isDown)
-		{
-			console.log(this.player);
-			this.player.shoot();
+		if (this.keyboard.isDown(Phaser.Keyboard.O)) {
+			this.player.body.rotateLeft(100);
+			isRotating = true;
+		}
+
+		if (this.keyboard.isDown(Phaser.Keyboard.P)) {
+			this.player.body.rotateRight(100);
+			isRotating = true;
+		}
+
+
+		if (!isRotating) {
+			this.player.body.setZeroRotation();
 		}
 
 		//update the server w/ new position
@@ -140,8 +137,8 @@ playState.prototype = {
 		// this.startPosition = data.startPosition;
 		// this.player.position.x = this.startPosition.x * TILE_SIZE.x;
 		// this.player.position.y = this.startPosition.y * TILE_SIZE.y;
-		this.player.position.x = 50;
-		this.player.position.y = 50;
+		// this.player.position.x = 50;
+		// this.player.position.y = 50;
 		// this.createMap(this.map);
 		for (var p in data.otherPlayers)
 		{

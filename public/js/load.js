@@ -9,7 +9,7 @@ loadState.prototype = {
 		socket = io();
 
 		//init physics
-		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.startSystem(Phaser.Physics.P2JS);
 
 		//load assets
 		game.load.image('player', 'assets/player.png');

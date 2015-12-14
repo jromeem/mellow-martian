@@ -100,11 +100,11 @@ playState.prototype = {
 		// this.player.rotation = this.physics.arcade.angleToPointer(this.player);	//+ 1.57079633 (add this to add 90 degrees to angle if needed)
 
 		if (this.keyboard.isDown(Phaser.Keyboard.Q)) {
-			this.player.body.thrust(400);
+			this.player.thruster_one.body.thrust(600);
 		}
 
 		if (this.keyboard.isDown(Phaser.Keyboard.W)) {
-
+			this.player.thruster_two.body.thrust(600);
 		}
 
 		if (this.keyboard.isDown(Phaser.Keyboard.O)) {

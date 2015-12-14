@@ -19,6 +19,9 @@ loadState.prototype = {
 		game.load.image('tile', 'assets/tile.png');
 		game.load.image('wall', 'assets/wall.png');
 		game.load.image('bullet', 'assets/bullet.png');
+
+		game.load.image('thrust1', 'assets/Flame1.png');
+		game.load.image('ship', 'assets/spaceship.png');
 	},
 
 	create: function() {

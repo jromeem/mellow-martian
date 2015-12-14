@@ -10,7 +10,7 @@
 
 var CharacterSystem  = (function() {
 	//'create'
-	var Character = function(x,y,image){
+	var Character = function(x,y,scale,image){
 		// console.log(this);
 		//this.maxHealth = -1;
 		//this.currentHealth = this.maxHealth;
@@ -19,9 +19,11 @@ var CharacterSystem  = (function() {
 		// this.sprite = game.add.sprite(x,y, image);
 		// this.sprite.anchor.setTo(0.5,0.5);	//set to center of sprite for rotation purposes
 		Phaser.Sprite.call(this, game, x, y, image);
+		console.log(scale);
 		this.anchor.setTo(0.5,0.5);
+		this.scale.set(0.2,0.2);
 
-	    // game.physics.p2.enable(this);
+	    game.physics.p2.enable(this, true); //debug
 
 		game.add.existing(this);
 
@@ -41,8 +43,8 @@ var CharacterSystem  = (function() {
 	// };
 
 	var PlayerCharacter = {
-		init: function(x,y,image) {
-			var newChar = new Character(x,y,image);
+		init: function(x,y,scale,image) {
+			var newChar = new Character(x,y,scale,image);
 			newChar.didShoot = false;
 			newChar.lastShotTarget = {};
 			newChar.nextFireTime = 0;
@@ -75,32 +77,41 @@ var CharacterSystem  = (function() {
 	 	createPlayerCharacter: function(x,y) {
 			x = typeof x !== 'undefined' ? x : 300;
 			y = typeof y !== 'undefined' ? y : 300;
-			var newChar = Object.create(PlayerCharacter).init(x,y,'player_small');
+			var newChar = Object.create(PlayerCharacter).init(x,y,1,'player_small');
 			return newChar;
 		},
 
 	 	createEnemyCharacter: function(x,y) {
 			x = typeof x !== 'undefined' ? x : 300;
 			y = typeof y !== 'undefined' ? y : 300;
-	 		var newChar = Object.create(EnemyCharacter).init(x,y,'player_small');
+	 		var newChar = Object.create(EnemyCharacter).init(x,y,1,'player_small');
 			return newChar;
 		},
 
 		createPlayerShip: function(x,y) {
 			x = typeof x !== 'undefined' ? x : 300;
 			y = typeof y !== 'undefined' ? y : 300;
-			var ship = Object.create(PlayerCharacter).init(x,y,'player_small');
-			ship.tint = 0xff0000;
-			var thruster_one = Object.create(PlayerCharacter).init(100,100,'player_small');
-			var thruster_two = Object.create(PlayerCharacter).init(300,100,'player_small');
+			var ship = Object.create(PlayerCharacter).init(x,y,0.2,'ship');
+			var thruster_one = Object.create(PlayerCharacter).init(250,0.2,300,'thrust1');
+			var thruster_two = Object.create(PlayerCharacter).init(350,0.2,300,'thrust1');
 
-			ship.addChild(thruster_one);
-			ship.addChild(thruster_two);
+			ship.tint = 0xff0000;
+
+			// ship.addChild(thruster_one);
+			// ship.addChild(thruster_two);
+
+			ship.thruster_one = thruster_one;
+			ship.thruster_two = thruster_two;
 
 			//turn on physics
-		    game.physics.p2.enable(ship);
-    	    game.physics.p2.enable(thruster_one);
-		    game.physics.p2.enable(thruster_two);
+		    // game.physics.p2.enable(ship,true);
+			// game.physics.p2.enable(thruster_one);
+			// game.physics.p2.enable(thruster_two);
+			// game.physics.p2.createDistanceConstraint(ship, thruster_one, 100, [0, 0], [0, 0], 2000);
+			// game.physics.p2.createRevoluteConstraint(ship, [0, -10], thruster_two, [0, 10], 2000);
+			var constraint1 = game.physics.p2.createLockConstraint(ship, thruster_one, [50, 0], 0, 2000);
+		    var constraint2 = game.physics.p2.createLockConstraint(ship, thruster_two, [-50, 0], 0, 2000);
+		    ship.body.damping = 0.95;
 
 
 			return ship;

@@ -70,12 +70,9 @@ playState.prototype = {
 		this.player = CharacterSystem.createPlayerShip();
 		this.player.tint = 0x00ff00;
 
-		this.ship = game.add.sprite(200, 200, 'player');
-		game.physics.p2.enable(this.ship);
-
 		game.camera.follow(this.player);
 
-
+		this.spawnRandomEnemies(10);
 
 		//join the game
 		socket.emit('join','roomid goes here');
@@ -226,18 +223,13 @@ playState.prototype = {
 	},
 
 	//used to test shooting, these enemies have no interaction aside from getting shot
-	spawnRandomEnemies: function() {
-		for (var t in this.map) {
-			var chance = game.rnd.between(0,10);
-			if (chance < 3 && this.map[t].image == 'tile')
-			{
-				// create(map[i].x * TILE_SIZE.x, this.map[i].y * TILE_SIZE.y, 'tile');
-				var enemy = CharacterSystem.createEnemyCharacter();
-				this.enemies.add(enemy);
-				enemy.tint = 0xff0000;
-				enemy.position.x = this.map[t].x*32+16;
-				enemy.position.y = this.map[t].y*32+16;
-			}
+	spawnRandomEnemies: function(count) {
+		// game.rnd.between(0,10);
+		console.log(count);
+		for (var i = 0; i < count; i++) {
+			CharacterSystem.createEnemyCharacter(300,300,'asteroidlg');
+			CharacterSystem.createEnemyCharacter(300,300,'asteroidsm');
+			CharacterSystem.createEnemyCharacter(300,300,'hexgem');
 		}
 	},
 

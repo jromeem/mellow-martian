@@ -12,16 +12,14 @@ loadState.prototype = {
 		game.physics.startSystem(Phaser.Physics.P2JS);
 
 		//load assets
-		game.load.image('player', 'assets/player.png');
-		game.load.image('player_small', 'assets/player_small.png');
-		game.load.image('enemy', 'assets/enemy.png');
-		game.load.image('enemy_small', 'assets/enemy_small.png');
-		game.load.image('tile', 'assets/tile.png');
-		game.load.image('wall', 'assets/wall.png');
-		game.load.image('bullet', 'assets/bullet.png');
+		game.load.image('asteroidlg', 'assets/asteroidlg.png');
+		game.load.image('asteroidsm', 'assets/asteroidsm.png');
+		game.load.image('hexgem', 'assets/hexgem.png');
 
 		game.load.image('thrust1', 'assets/Flame1.png');
 		game.load.image('ship', 'assets/spaceship.png');
+
+		game.load.image('temp_enemy', 'assets/enemy.png');
 	},
 
 	create: function() {

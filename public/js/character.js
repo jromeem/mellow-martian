@@ -64,8 +64,9 @@ var CharacterSystem  = (function() {
 	};
 
 	var EnemyCharacter = {
-		init: function(x,y,image) {
-			var newChar = new Character(x,y,image);
+		init: function(x,y,scale,image) {
+			console.log(image);
+			var newChar = new Character(x,y,scale,image);
 
 			delete this.init; //remove init
 			return newChar;
@@ -76,14 +77,17 @@ var CharacterSystem  = (function() {
 	 	createPlayerCharacter: function(x,y) {
 			x = typeof x !== 'undefined' ? x : 300;
 			y = typeof y !== 'undefined' ? y : 300;
-			var newChar = Object.create(PlayerCharacter).init(x,y,1,'player_small');
+			var newChar = Object.create(PlayerCharacter).init(x,y,0.2,'player_small');
 			return newChar;
 		},
 
-	 	createEnemyCharacter: function(x,y) {
+	 	createEnemyCharacter: function(x,y,image) {
+	 		console.log(image);
 			x = typeof x !== 'undefined' ? x : 300;
 			y = typeof y !== 'undefined' ? y : 300;
-	 		var newChar = Object.create(EnemyCharacter).init(x,y,1,'player_small');
+			image = typeof image !== 'undefined' ? image : 'temp_enemy';
+	 		console.log('create enemy ' + image);
+	 		var newChar = Object.create(EnemyCharacter).init(x,y,0.2,image);
 			return newChar;
 		},
 

@@ -25,6 +25,7 @@ playState.prototype = {
 		//'_this' will refer to context of playState, used for explicit binding within anonymous functions (see example @ joinSuccess)
 		//more info: http://alistapart.com/article/getoutbindingsituations
 		var _this = this;
+		game.world.setBounds(0, 0, 1920, 1920);
 
 		//network stuff
 
@@ -72,6 +73,10 @@ playState.prototype = {
 		this.ship = game.add.sprite(200, 200, 'player');
 		game.physics.p2.enable(this.ship);
 
+		game.camera.follow(this.player);
+
+
+
 		//join the game
 		socket.emit('join','roomid goes here');
 	},
@@ -100,11 +105,11 @@ playState.prototype = {
 		// this.player.rotation = this.physics.arcade.angleToPointer(this.player);	//+ 1.57079633 (add this to add 90 degrees to angle if needed)
 
 		if (this.keyboard.isDown(Phaser.Keyboard.Q)) {
-			this.player.thruster_one.body.thrust(600);
+			this.player.thruster_one.body.thrust(4200);
 		}
 
 		if (this.keyboard.isDown(Phaser.Keyboard.W)) {
-			this.player.thruster_two.body.thrust(600);
+			this.player.thruster_two.body.thrust(4200);
 		}
 
 		if (this.keyboard.isDown(Phaser.Keyboard.O)) {

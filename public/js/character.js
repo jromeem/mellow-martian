@@ -20,7 +20,7 @@ var CharacterSystem  = (function() {
 		// this.sprite.anchor.setTo(0.5,0.5);	//set to center of sprite for rotation purposes
 		Phaser.Sprite.call(this, game, x, y, image);
 		this.anchor.setTo(0.5,0.5);
-		this.scale.set(0.2,0.2);
+		this.scale.set(scale,scale);
 
 	    game.physics.p2.enable(this, true); //debug
 
@@ -87,7 +87,7 @@ var CharacterSystem  = (function() {
 			y = typeof y !== 'undefined' ? y : 300;
 			image = typeof image !== 'undefined' ? image : 'temp_enemy';
 	 		console.log('create enemy ' + image);
-	 		var newChar = Object.create(EnemyCharacter).init(x,y,0.2,image);
+	 		var newChar = Object.create(EnemyCharacter).init(x,y,0.3,image);
 			return newChar;
 		},
 
@@ -95,10 +95,8 @@ var CharacterSystem  = (function() {
 			x = typeof x !== 'undefined' ? x : 500;
 			y = typeof y !== 'undefined' ? y : 300;
 			var ship = Object.create(PlayerCharacter).init(x,y,0.2,'ship');
-			var thruster_one = Object.create(PlayerCharacter).init(450,0.2,300,'thrust1');
-			var thruster_two = Object.create(PlayerCharacter).init(550,0.2,300,'thrust1');
-
-			ship.tint = 0xff0000;
+			var thruster_one = Object.create(PlayerCharacter).init(450,300,0.2,'thrust1');
+			var thruster_two = Object.create(PlayerCharacter).init(550,300,0.2,'thrust1');
 
 			// ship.addChild(thruster_one);
 			// ship.addChild(thruster_two);
@@ -106,19 +104,11 @@ var CharacterSystem  = (function() {
 			ship.thruster_one = thruster_one;
 			ship.thruster_two = thruster_two;
 
-			//turn on physics
-			// game.physics.p2.enable(ship,true);
-			// game.physics.p2.enable(thruster_one);
-			// game.physics.p2.enable(thruster_two);
-			// game.physics.p2.createDistanceConstraint(ship, thruster_one, 100, [0, 0], [0, 0], 2000);
-			// game.physics.p2.createRevoluteConstraint(ship, [0, -10], thruster_two, [0, 10], 2000);
 			var constraint1 = game.physics.p2.createLockConstraint(ship, thruster_one, [70, 0], 0, 2000);
 		    var constraint2 = game.physics.p2.createLockConstraint(ship, thruster_two, [-70, 0], 0, 2000);
 
 			ship.body.damping = 0.95;
-			ship.body.mass = 5;			
-			thruster_one.body.mass = 1;
-			thruster_two.body.mass = 1;
+			ship.body.mass = 5;
 
 			return ship;
 		},

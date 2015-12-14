@@ -25,7 +25,7 @@ playState.prototype = {
 		//'_this' will refer to context of playState, used for explicit binding within anonymous functions (see example @ joinSuccess)
 		//more info: http://alistapart.com/article/getoutbindingsituations
 		var _this = this;
-		game.world.setBounds(0, 0, 1920, 1920);
+		game.world.setBounds(0, 0, 2000, 2000);
 
 		//network stuff
 
@@ -68,11 +68,10 @@ playState.prototype = {
 		//add player/enemy
 		// this.player = CharacterSystem.createPlayerCharacter();
 		this.player = CharacterSystem.createPlayerShip();
-		this.player.tint = 0x00ff00;
 
 		game.camera.follow(this.player);
 
-		this.spawnRandomEnemies(10);
+		this.spawnRandomEnemies(30);
 
 		//join the game
 		socket.emit('join','roomid goes here');
@@ -227,9 +226,13 @@ playState.prototype = {
 		// game.rnd.between(0,10);
 		console.log(count);
 		for (var i = 0; i < count; i++) {
-			CharacterSystem.createEnemyCharacter(300,300,'asteroidlg');
-			CharacterSystem.createEnemyCharacter(300,300,'asteroidsm');
-			CharacterSystem.createEnemyCharacter(300,300,'hexgem');
+			var e1 = CharacterSystem.createEnemyCharacter(1000,1000,'asteroidlg');
+			var e2 = CharacterSystem.createEnemyCharacter(1000,1000,'asteroidsm');
+			var e3 = CharacterSystem.createEnemyCharacter(1000,1000,'hexgem');
+
+			e1.body.mass = 45;
+			e2.body.mass = 25;
+			e3.body.mass = 15;
 		}
 	},
 
